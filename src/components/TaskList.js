@@ -1,13 +1,40 @@
-import { useState } from "react";
 import Task from "./Task";
 
-function TaskList({ TASKS }) {
-  const [tasks, setTasks] = useState(TASKS)
+function TaskList({
+  tasks,
+  setTasks,
+  categories,
+  setCategories,
+  filterBy,
+  setFilterBy
+}) {
 
-  // Removing parent DOM element w/o state
-  const handleTaskDelete = (e) => e.target.parentElement.remove()
+  const handleTaskDelete = (e) => {
+    // TODO: Delete with state
+    // console.log(tasks[0])
+    // debugger
+    // e.target.parentElement
+    setTasks(() => tasks.filter(task => !e.target.parentElement.textContent.includes(task.text)))
+  }
 
-  const displayTasks = tasks.map(({ text, category }) => {
+  // const buttonsToDisplay = categories.filter(cat => {
+  //   // debugger
+  //   // This line need the task list:
+  //   // return filterBy === 'All' ? true : 
+  // })
+  /*
+  The list of tasks being displayed should be filtered,
+  so that only tasks that match the category that was
+  clicked are displayed.
+  */
+  const filterTasks = tasks.filter(task => {
+    // console.log(tasks)
+    // console.log(filterBy)
+    // debugger
+    return filterBy === 'All' ? true : task.category === filterBy
+  })
+
+  const displayTasks = filterTasks.map(({ text, category }) => {
       // debugger
       return (
         <Task 
