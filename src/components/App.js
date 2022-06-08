@@ -10,6 +10,17 @@ function App() {
   const [categories, setCategories] = useState(CATEGORIES)
   // The selected category:
   const [filterBy, setFilterBy] = useState('All')
+  // const [reset, setReset] = useState(false)
+  const [newTaskDetails, setNewTaskDetails] = useState('')
+
+  const onTaskFormSubmit = (e) => {
+    // VVV DO NOT FORGET THIS!
+    e.preventDefault()
+    // add a new task to the list with the text and category from the form
+    const newTask = { text: e.target[0].value, category: e.target[1].value }
+    setTasks([...tasks, newTask])
+    setNewTaskDetails('')
+  }
 
   return (
     <div className="App">
@@ -20,7 +31,13 @@ function App() {
         filterBy={filterBy}
         setFilterBy={setFilterBy}
       />
-      <NewTaskForm />
+      <NewTaskForm 
+        categories={categories}
+        setCategories={setCategories}
+        onTaskFormSubmit={onTaskFormSubmit}
+        newTaskDetails={newTaskDetails}
+        setNewTaskDetails={setNewTaskDetails}
+      />
       <TaskList
         tasks={tasks}
         setTasks={setTasks}

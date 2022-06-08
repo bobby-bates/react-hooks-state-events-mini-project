@@ -1,5 +1,3 @@
-import React from "react";
-
 function Task({ text, category, onTaskDelete }) {
   return (
     <div className="task">
